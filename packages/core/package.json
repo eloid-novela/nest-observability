@@ -1,0 +1,62 @@
+{
+  "name": "@nestjs-observability/core",
+  "version": "0.1.0",
+  "description": "A framework-agnostic observability core for NestJS ecosystem applications, providing structured logging, context propagation, tracing, and extensible plugins.",
+  "keywords": [
+    "nestjs",
+    "observability",
+    "logging",
+    "structured-logging",
+    "tracing",
+    "telemetry",
+    "typescript"
+  ],
+  "license": "MIT",
+  "author": "eloid-novela",
+
+  "type": "module",
+
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+
+  "files": [
+    "dist"
+  ],
+
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rimraf dist",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src"
+  },
+
+  "dependencies": {},
+
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "tsup": "^8.3.0",
+    "vitest": "^2.1.0",
+    "@vitest/coverage-v8": "^2.1.0",
+    "rimraf": "^6.0.1"
+  },
+
+  "engines": {
+    "node": ">=18"
+  },
+
+  "publishConfig": {
+    "access": "public"
+  }
+}
