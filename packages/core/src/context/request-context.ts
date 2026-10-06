@@ -1,6 +1,6 @@
 import {
   LogContext,
-} from "../interfaces";
+} from "../interfaces/index.js";
 
 
 export class RequestContext {

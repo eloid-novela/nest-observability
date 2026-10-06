@@ -1,27 +1,12 @@
 import {
- BaseFormatter
+ BaseFormatter,
 } from "./formatter.js";
 
-
-export class JsonFormatter
-extends BaseFormatter {
-
-
-format(
- context:any
-){
-
-return JSON.stringify(
- {
-  timestamp:
-   new Date().toISOString(),
-
-  ...context
+export class JsonFormatter extends BaseFormatter {
+ format(context: Readonly<Record<string, unknown>>): string {
+   return JSON.stringify({
+     ...context,
+     timestamp: context.timestamp ?? new Date().toISOString(),
+   });
  }
-);
-
-
-}
-
-
 }

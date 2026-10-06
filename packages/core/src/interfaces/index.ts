@@ -44,6 +44,6 @@ export interface Logger {
 
 export interface Formatter {
   format(
-    context: LogContext,
+    context: Readonly<Record<string, unknown>>,
   ): string;
 }

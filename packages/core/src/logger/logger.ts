@@ -1,30 +1,16 @@
-import {
-  Logger as LoggerInterface
+import type {
+  LogContext,
+  Logger as LoggerInterface,
 } from "../interfaces/index.js";
 
+export abstract class BaseLogger implements LoggerInterface {
+  abstract info(message: string, context?: LogContext): void;
 
-export abstract class BaseLogger
-implements LoggerInterface {
-
-
-  abstract info(
-    message:string,
-    context?:any
-  ):void;
-
-
-
-  abstract warn(
-    message:string,
-    context?:any
-  ):void;
-
-
+  abstract warn(message: string, context?: LogContext): void;
 
   abstract error(
-    message:string,
-    error?:Error,
-    context?:any
-  ):void;
-
+    message: string,
+    error?: Error,
+    context?: LogContext,
+  ): void;
 }

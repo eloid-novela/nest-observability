@@ -1,70 +1,55 @@
-// import {
-//  BaseLogger
-// } from "./logger.js";
+import type {
+  LogContext,
+  Formatter,
+} from "../interfaces/index.js";
+import {
+  JsonFormatter,
+} from "../formatter/json.js";
+import {
+  BaseLogger,
+} from "./logger.js";
 
+export class ConsoleLogger extends BaseLogger {
+  constructor(
+    private readonly formatter: Formatter = new JsonFormatter(),
+  ) {
+    super();
+  }
 
-// // import {
-// //  Formatter
-// // } from "../formatter/pretty.js";
+  info(message: string, context?: LogContext): void {
+    this.write("info", console.info, message, context);
+  }
 
+  warn(message: string, context?: LogContext): void {
+    this.write("warn", console.warn, message, context);
+  }
 
-// export class ConsoleLogger
-// extends BaseLogger {
+  error(message: string, error?: Error, context?: LogContext): void {
+    this.write("error", console.error, message, context, error);
+  }
 
+  private write(
+    level: "info" | "warn" | "error",
+    output: (...data: unknown[]) => void,
+    message: string,
+    context?: LogContext,
+    error?: Error,
+  ): void {
+    const entry: Record<string, unknown> = {
+      ...context,
+      timestamp: context?.timestamp ?? new Date().toISOString(),
+      level,
+      message,
+    };
 
-// // constructor(
-// //  private formatter:Formatter
-// // ){super();}
+    if (error) {
+      entry.error = {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
+      };
+    }
 
-
-
-// info(
-//  message:string,
-//  context:any
-// ){
-
-//  console.log(
-//   this.formatter.format({
-//     ...context,
-//     message
-//   })
-//  );
-
-// }
-
-
-
-// warn(
-//  message:string,
-//  context:any
-// ){
-
-//  console.warn(
-//   this.formatter.format({
-//     ...context,
-//     message
-//   })
-//  );
-
-// }
-
-
-
-// error(
-//  message:string,
-//  error?:Error,
-//  context?:any
-// ){
-
-//  console.error(
-//   this.formatter.format({
-//     ...context,
-//     message,
-//     error:error?.message
-//   })
-//  );
-
-// }
-
-
-// }
+    output(this.formatter.format(entry));
+  }
+}
