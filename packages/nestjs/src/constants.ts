@@ -1,0 +1,4 @@
+export const OBSERVABILITY_OPTIONS = Symbol("OBSERVABILITY_OPTIONS");
+export const OBSERVABILITY_LOGGER = Symbol("OBSERVABILITY_LOGGER");
+
+export const DEFAULT_REQUEST_ID_HEADER = "x-request-id";

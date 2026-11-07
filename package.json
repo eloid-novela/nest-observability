@@ -1,63 +1,37 @@
 {
-  "name": "@nest-observability/core",
-  "version": "0.1.0",
-  "description": "A modern observability core toolkit for NestJS applications, providing structured logging, context propagation, request tracing, and extensible plugins.",
-  "keywords": [
-    "nestjs",
-    "observability",
-    "logging",
-    "logger",
-    "tracing",
-    "telemetry",
-    "typescript",
-    "opentelemetry"
-  ],
-  "homepage": "https://github.com/eloid-novela/nest-observability",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/eloid-novela/nest-observability.git",
-    "directory": "packages/core"
-  },
-  "bugs": {
-    "url": "https://github.com/eloid-novela/nest-observability/issues"
-  },
+  "name": "nest-observability",
+  "private": true,
+  "description": "Observability toolkit for NestJS applications: structured logging, request context propagation and request tracing.",
   "license": "MIT",
   "author": "eloid-novela",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eloid-novela/nest-observability.git"
+  },
+  "workspaces": [
+    "packages/core",
+    "packages/nestjs"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "test": "vitest",
-    "test:coverage": "vitest --coverage",
-    "lint": "eslint src",
-    "typecheck": "tsc --noEmit"
+    "build": "npm run build --workspaces",
+    "typecheck": "npm run build -w @nestjs-observability/core && npm run typecheck --workspaces",
+    "test": "npm run test --workspaces -- --run",
+    "test:coverage": "npm run test:coverage --workspaces",
+    "lint": "eslint packages scripts",
+    "dev": "node scripts/dev.mjs",
+    "pack:local": "node scripts/pack-local.mjs",
+    "changeset": "changeset",
+    "version-packages": "changeset version && npm install --package-lock-only",
+    "release": "npm run build && changeset publish"
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",
-    "@types/node": "^22.20.1",
-    "@vitest/coverage-v8": "^2.0.0",
     "eslint": "^9.0.0",
-    "tsup": "^8.0.0",
-    "typescript": "^5.0.0",
-    "vitest": "^2.0.0"
-  },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.0.0",
+    "@changesets/cli": "^2.27.0"
   },
   "engines": {
-    "node": ">=18"
-  },
-  "publishConfig": {
-    "access": "public"
+    "node": ">=20"
   }
 }

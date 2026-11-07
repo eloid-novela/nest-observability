@@ -1,37 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-
-    "lib": [
-      "ES2022"
-    ],
-
-    "types": [
-      "node"
-    ],
-
-    "strict": true,
-
-    "skipLibCheck": true,
-
-    "declaration": true,
-
-    "declarationMap": true,
-
-    "noEmit": true,
-
-    "rootDir": "./src"
-  },
-
-  "include": [
-    "src/**/*.ts"
-  ],
-
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "extends": "../../tsconfig.json",
+  "include": ["src/**/*.ts", "test/**/*.ts"]
 }
