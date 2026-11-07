@@ -23,7 +23,7 @@ describe("ConsoleLogger", () => {
     });
 
     expect(output).toHaveBeenCalledOnce();
-    expect(JSON.parse(output.mock.calls[0][0] as string)).toEqual({
+    expect(JSON.parse(output.mock.calls[0]![0] as string)).toEqual({
       timestamp: timestamp.toISOString(),
       requestId: "request-1",
       transport: "http",
@@ -40,7 +40,7 @@ describe("ConsoleLogger", () => {
 
     logger.error("request failed", error);
 
-    const entry = JSON.parse(output.mock.calls[0][0] as string);
+    const entry = JSON.parse(output.mock.calls[0]![0] as string);
     expect(entry).toMatchObject({
       level: "error",
       message: "request failed",

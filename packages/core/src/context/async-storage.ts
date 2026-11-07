@@ -1,40 +1,33 @@
-import {
-  AsyncLocalStorage,
-} from "node:async_hooks";
+import { AsyncLocalStorage } from "node:async_hooks";
+import { randomUUID } from "node:crypto";
+import type { LogContext } from "../interfaces/index.js";
+import { RequestContext } from "./request-context.js";
 
-import {
-  RequestContext,
-} from "./request-context.js";
+/** Propagates a RequestContext through every async call made while handling a request. */
+export class ContextStorage {
+  private readonly storage = new AsyncLocalStorage<RequestContext>();
 
+  run<T>(context: RequestContext | LogContext, callback: () => T): T {
+    const requestContext =
+      context instanceof RequestContext ? context : new RequestContext(context);
 
-class ContextStorage {
-
-  private storage =
-    new AsyncLocalStorage<RequestContext>();
-
-
-  run(
-    context: RequestContext,
-    callback: () => void,
-  ) {
-
-    this.storage.run(
-      context,
-      callback,
-    );
-
+    return this.storage.run(requestContext, callback);
   }
 
-
-  get():
-    RequestContext | undefined {
-
+  get(): RequestContext | undefined {
     return this.storage.getStore();
-
   }
-
 }
 
+const GLOBAL_KEY = Symbol.for("@nestjs-observability/core:contextStorage");
+const globalStore = globalThis as { [GLOBAL_KEY]?: ContextStorage };
 
-export const contextStorage =
-  new ContextStorage();
+/**
+ * Process-wide singleton. Stored on `globalThis` so the ESM and CommonJS builds
+ * (or two installed copies of this package) share the same request context.
+ */
+export const contextStorage: ContextStorage = (globalStore[GLOBAL_KEY] ??= new ContextStorage());
+
+export function generateRequestId(): string {
+  return randomUUID();
+}
