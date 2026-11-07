@@ -1,0 +1,81 @@
+{
+  "name": "@nestjs-observability/nestjs",
+  "version": "0.1.0",
+  "description": "NestJS integration for @nestjs-observability/core: request context, request logging and a structured LoggerService.",
+  "keywords": [
+    "nestjs",
+    "observability",
+    "logging",
+    "structured-logging",
+    "request-id",
+    "middleware"
+  ],
+  "homepage": "https://github.com/eloid-novela/nest-observability",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eloid-novela/nest-observability.git",
+    "directory": "packages/nestjs"
+  },
+  "bugs": {
+    "url": "https://github.com/eloid-novela/nest-observability/issues"
+  },
+  "license": "MIT",
+  "author": "eloid-novela",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@nestjs-observability/core": "^0.1.0"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^10.0.0 || ^11.0.0",
+    "@nestjs/core": "^10.0.0 || ^11.0.0",
+    "rxjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
+    "@nestjs/testing": "^11.0.0",
+    "@types/node": "^22.0.0",
+    "@types/supertest": "^6.0.0",
+    "@vitest/coverage-v8": "^2.1.0",
+    "reflect-metadata": "^0.2.0",
+    "rxjs": "^7.8.0",
+    "supertest": "^7.0.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0",
+    "@nestjs/microservices": "^11.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
